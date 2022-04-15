@@ -11,5 +11,5 @@ interface CharacterDao{
     fun getCharacter(id: Int): LiveData<CharacterDbModel>
 
     @Query("SELECT * FROM character")
-    fun getAllCharacters(): LiveData<List<CharacterDbModel>>
+    fun getCharactersList(): LiveData<List<CharacterDbModel>>
 }
