@@ -2,12 +2,13 @@ package com.oliferov.rickandmortyapi.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import java.security.Provider
+import javax.inject.Inject
+import javax.inject.Provider
 
-class ViewModelFactory(
+class ViewModelFactory @Inject constructor(
 private val viewModelProvider:@JvmSuppressWildcards Map<Class<out ViewModel>, Provider<ViewModel>>
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return
+        return viewModelProvider[modelClass]?.get() as T
     }
 }

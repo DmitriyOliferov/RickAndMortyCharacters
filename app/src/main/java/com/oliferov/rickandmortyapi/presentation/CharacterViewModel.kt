@@ -4,8 +4,9 @@ import androidx.lifecycle.ViewModel
 import com.oliferov.rickandmortyapi.domain.GetCharacterUseCase
 import com.oliferov.rickandmortyapi.domain.GetCharactersListUseCase
 import com.oliferov.rickandmortyapi.domain.LoadDataUseCase
+import javax.inject.Inject
 
-class CharacterViewModel(
+class CharacterViewModel @Inject constructor(
     private val getCharacterUseCase: GetCharacterUseCase,
     private val getCharactersListUseCase: GetCharactersListUseCase,
     private val loadDataUseCase: LoadDataUseCase

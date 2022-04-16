@@ -3,8 +3,9 @@ package com.oliferov.rickandmortyapi.data.mapper
 import com.oliferov.rickandmortyapi.data.database.CharacterDbModel
 import com.oliferov.rickandmortyapi.data.network.model.CharacterDto
 import com.oliferov.rickandmortyapi.domain.Character
+import javax.inject.Inject
 
-class CharacterMapper {
+class CharacterMapper @Inject constructor(){
 
     private fun mapDtoToDbModel(dto: CharacterDto) = CharacterDbModel(
         id = dto.id,

@@ -7,8 +7,9 @@ import com.oliferov.rickandmortyapi.data.mapper.CharacterMapper
 import com.oliferov.rickandmortyapi.data.network.ApiService
 import com.oliferov.rickandmortyapi.domain.Character
 import com.oliferov.rickandmortyapi.domain.CharacterRepository
+import javax.inject.Inject
 
-class CharacterRepositoryImpl(
+class CharacterRepositoryImpl @Inject constructor(
     private val mapper: CharacterMapper,
     private val apiService: ApiService,
     private val characterDao: CharacterDao
@@ -21,7 +22,7 @@ class CharacterRepositoryImpl(
     }
 
     override fun getCharacter(id: Int): LiveData<Character> {
-        return Transformations.map(characterDao.getCharacter(id)){
+        return Transformations.map(characterDao.getCharacter(id)) {
             mapper.mapDbModelToEntity(it)
         }
     }
@@ -30,10 +31,10 @@ class CharacterRepositoryImpl(
         LoadData()
     }
 
-    inner class LoadData(){
+    inner class LoadData() {
         suspend fun invoke() {
             var page = "1"
-            while(page!= "null"){
+            while (page != "null") {
                 val pageDto = apiService.getAllCharacters(page)
                 val characterListDto = pageDto.charactersList ?: return
                 val characterDbModelList = mapper.mapDtoListToDbModelList(characterListDto)
@@ -43,6 +44,7 @@ class CharacterRepositoryImpl(
                     "",
                     true
                 ) ?: "null"
+            }
         }
     }
 }
