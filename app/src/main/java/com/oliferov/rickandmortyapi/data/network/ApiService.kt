@@ -1,6 +1,7 @@
 package com.oliferov.rickandmortyapi.data.network
 
 import com.oliferov.rickandmortyapi.data.network.model.PageDto
+import dagger.Provides
 import retrofit2.http.GET
 import retrofit2.http.Query
 

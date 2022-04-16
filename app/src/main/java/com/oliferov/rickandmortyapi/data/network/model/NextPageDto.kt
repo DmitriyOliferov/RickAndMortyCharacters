@@ -4,7 +4,7 @@ import com.google.gson.JsonObject
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class NextPageDto (
+data class NextPageDto (
     @SerializedName("next")
     @Expose
     val nextPage: String

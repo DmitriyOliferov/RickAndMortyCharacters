@@ -4,14 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".presentation.CharactersListActivity">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="0dp"
+        android:id="@+id/iv_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:contentDescription="Rick and Morty"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_launcher_background" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_characters_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/iv_title"
+        tools:listitem="@layout/item_character"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

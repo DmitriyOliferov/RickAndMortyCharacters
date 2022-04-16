@@ -24,7 +24,7 @@ class CharacterMapper @Inject constructor(){
         species = dbModel.species,
         gender = dbModel.gender,
         status = dbModel.status,
-        avatar = dbModel.avatar,
+        avatarUrl = dbModel.avatar,
         location = dbModel.location,
         episode = dbModel.episode
     )

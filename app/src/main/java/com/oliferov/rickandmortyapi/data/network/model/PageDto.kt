@@ -4,7 +4,7 @@ import com.google.gson.JsonObject
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class PageDto (
+data class PageDto (
     @SerializedName("info")
     @Expose
     val nextPageDto: NextPageDto? = null,

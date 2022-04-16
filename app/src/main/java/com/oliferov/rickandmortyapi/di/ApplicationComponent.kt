@@ -1,7 +1,8 @@
 package com.oliferov.rickandmortyapi.di
 
 import android.app.Application
-import com.oliferov.rickandmortyapi.MainActivity
+import com.oliferov.rickandmortyapi.presentation.CharactersListActivity
+import dagger.BindsInstance
 import dagger.Component
 
 @Component(
@@ -12,11 +13,12 @@ import dagger.Component
 )
 interface ApplicationComponent {
 
+    @Component.Factory
     interface Factory {
         fun create(
-            application: Application
+            @BindsInstance application: Application
         ): ApplicationComponent
     }
 
-    fun inject(activity: MainActivity)
+    fun inject(activity: CharactersListActivity)
 }
