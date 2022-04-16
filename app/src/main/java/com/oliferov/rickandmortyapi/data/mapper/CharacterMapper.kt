@@ -4,9 +4,9 @@ import com.oliferov.rickandmortyapi.data.database.CharacterDbModel
 import com.oliferov.rickandmortyapi.data.network.model.CharacterDto
 import com.oliferov.rickandmortyapi.domain.Character
 
-class CharacterMapper{
+class CharacterMapper {
 
-    fun mapDtoToDbModel(dto: CharacterDto) = CharacterDbModel(
+    private fun mapDtoToDbModel(dto: CharacterDto) = CharacterDbModel(
         id = dto.id,
         name = dto.name,
         species = dto.species,
@@ -27,4 +27,25 @@ class CharacterMapper{
         location = dbModel.location,
         episode = dbModel.episode
     )
+
+    fun mapDtoListToDbModelList(dtoList: List<CharacterDto>): List<CharacterDbModel> {
+        return dtoList.map {
+            mapDtoToDbModel(it)
+        }
+    }
+
+    fun mapDbModelListToEntityList(dtoList: List<CharacterDbModel>): List<Character> {
+        return dtoList.map {
+            mapDbModelToEntity(it)
+        }
+    }
+
+//    fun mapJsonCharacterListToCharactersList(jsonList: CharacterListDto): List<CharacterDto> {
+//        val result = mutableListOf<CharacterDto>()
+//        val jsonObjectList = jsonList.charactersList ?: return result
+//        jsonObjectList.map{
+//            result.add(Gson().fromJson(it.,CharacterDto::class.java))
+//        }
+//        return result
+//    }
 }
