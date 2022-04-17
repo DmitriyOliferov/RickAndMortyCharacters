@@ -8,5 +8,5 @@ fun getCharactersList(): LiveData<List<Character>>
 
 fun getCharacter(id: Int): LiveData<Character>
 
-suspend fun loadData()
+fun loadData()
 }

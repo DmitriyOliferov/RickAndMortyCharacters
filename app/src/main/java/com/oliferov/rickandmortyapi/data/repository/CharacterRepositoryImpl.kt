@@ -1,16 +1,21 @@
 package com.oliferov.rickandmortyapi.data.repository
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import androidx.work.ExistingWorkPolicy
+import androidx.work.WorkManager
 import com.oliferov.rickandmortyapi.data.database.CharacterDao
 import com.oliferov.rickandmortyapi.data.mapper.CharacterMapper
 import com.oliferov.rickandmortyapi.data.network.ApiFactory
+import com.oliferov.rickandmortyapi.data.worker.DataWorker
 import com.oliferov.rickandmortyapi.domain.Character
 import com.oliferov.rickandmortyapi.domain.CharacterRepository
 import javax.inject.Inject
 
 class CharacterRepositoryImpl @Inject constructor(
     private val mapper: CharacterMapper,
+    private val application: Application,
     private val characterDao: CharacterDao
 ) : CharacterRepository {
 
@@ -26,26 +31,13 @@ class CharacterRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun loadData() {
-        var nextPage = "1"
-        while (nextPage != "null") {
-            val pageDto = ApiFactory.apiService.getAllCharacters(page = nextPage)
-            nextPage = pageDto
-                .nextPageDto
-                ?.nextPage
-                ?.let {
-                    it.substring(
-                        it.lastIndexOf("=") + 1
-                    )
-                } ?: "null"
-            mapper.mapJsonCharacterListToCharactersList(pageDto)
-                .let {
-                    mapper.mapDtoListToDbModelList(it)
-                }
-                .let {
-                    characterDao.insertCharactersList(it)
-                }
-        }
+    override fun loadData() {
+        val workManager = WorkManager.getInstance(application)
+        workManager.enqueueUniqueWork(
+            DataWorker.NAME,
+            ExistingWorkPolicy.REPLACE,
+            DataWorker.makeRequest()
+        )
     }
 }
 

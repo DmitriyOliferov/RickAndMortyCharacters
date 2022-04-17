@@ -20,8 +20,6 @@ class CharacterViewModel @Inject constructor(
     fun getCharacterDetail(id: Int) = getCharacterUseCase(id)
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
             loadDataUseCase()
-        }
     }
 }
