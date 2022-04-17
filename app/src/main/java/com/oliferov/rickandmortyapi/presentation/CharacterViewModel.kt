@@ -1,9 +1,12 @@
 package com.oliferov.rickandmortyapi.presentation
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.oliferov.rickandmortyapi.domain.GetCharacterUseCase
 import com.oliferov.rickandmortyapi.domain.GetCharactersListUseCase
 import com.oliferov.rickandmortyapi.domain.LoadDataUseCase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CharacterViewModel @Inject constructor(
@@ -17,6 +20,9 @@ class CharacterViewModel @Inject constructor(
     fun getCharacterDetail(id: Int) = getCharacterUseCase(id)
 
     init {
-        loadDataUseCase()
+        viewModelScope.launch(Dispatchers.IO) {
+            loadDataUseCase()
+        }
+
     }
 }

@@ -16,5 +16,5 @@ interface CharacterDao{
     fun getCharactersList(): LiveData<List<CharacterDbModel>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCharactersList(charactersList: List<CharacterDbModel>)
+    fun insertCharactersList(charactersList: List<CharacterDbModel>)
 }

@@ -5,5 +5,5 @@ import javax.inject.Inject
 class LoadDataUseCase @Inject constructor(
     private val repository: CharacterRepository
 ) {
-    operator fun invoke() = repository.loadData()
+    suspend operator fun invoke() = repository.loadData()
 }

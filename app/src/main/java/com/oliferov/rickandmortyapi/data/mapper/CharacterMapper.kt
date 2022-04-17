@@ -1,7 +1,10 @@
 package com.oliferov.rickandmortyapi.data.mapper
 
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import com.oliferov.rickandmortyapi.data.database.CharacterDbModel
 import com.oliferov.rickandmortyapi.data.network.model.CharacterDto
+import com.oliferov.rickandmortyapi.data.network.model.PageDto
 import com.oliferov.rickandmortyapi.domain.Character
 import javax.inject.Inject
 
@@ -41,12 +44,12 @@ class CharacterMapper @Inject constructor(){
         }
     }
 
-//    fun mapJsonCharacterListToCharactersList(jsonList: CharacterListDto): List<CharacterDto> {
-//        val result = mutableListOf<CharacterDto>()
-//        val jsonObjectList = jsonList.charactersList ?: return result
-//        jsonObjectList.map{
-//            result.add(Gson().fromJson(it.,CharacterDto::class.java))
-//        }
-//        return result
-//    }
+    fun mapJsonCharacterListToCharactersList(pageDto: PageDto): List<CharacterDto> {
+        val result = mutableListOf<CharacterDto>()
+        val jsonObjectList = pageDto.charactersList ?: return result
+        jsonObjectList.map{
+            result.add(Gson().fromJson(it,CharacterDto::class.java))
+        }
+        return result
+    }
 }

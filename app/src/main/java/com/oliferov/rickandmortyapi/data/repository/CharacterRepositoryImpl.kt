@@ -1,11 +1,13 @@
 package com.oliferov.rickandmortyapi.data.repository
 
+import android.annotation.SuppressLint
+import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.oliferov.rickandmortyapi.data.database.CharacterDao
 import com.oliferov.rickandmortyapi.data.mapper.CharacterMapper
 import com.oliferov.rickandmortyapi.data.network.ApiFactory
-import com.oliferov.rickandmortyapi.data.network.ApiService
 import com.oliferov.rickandmortyapi.domain.Character
 import com.oliferov.rickandmortyapi.domain.CharacterRepository
 import javax.inject.Inject
@@ -27,24 +29,26 @@ class CharacterRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun loadData() {
-        LoadData()
-    }
+    @SuppressLint("CheckResult")
+    override suspend fun loadData() {
 
-    inner class LoadData() {
-        suspend fun invoke() {
-            var page = "1"
-            while (page != "null") {
-                val pageDto = ApiFactory.apiService.getAllCharacters(page)
-                val characterListDto = pageDto.charactersList ?: return
-                val characterDbModelList = mapper.mapDtoListToDbModelList(characterListDto)
-                characterDao.insertCharactersList(characterDbModelList)
-                page = pageDto.nextPageDto?.nextPage?.replace(
-                    "https://rickandmortyapi.com/api/character/?page=",
-                    "",
-                    true
-                ) ?: "null"
-            }
+        var nextPage = "1"
+        while (nextPage != "null") {
+            val pageDto = ApiFactory.apiService.getAllCharacters(page = nextPage)
+            nextPage = pageDto.nextPageDto?.nextPage?.let {
+                it.substring(
+                    it.lastIndexOf("=") + 1
+                )
+            } ?: "null"
+            mapper.mapJsonCharacterListToCharactersList(pageDto)
+                .let {
+                    mapper.mapDtoListToDbModelList(it)
+                }
+                .let {
+                    characterDao.insertCharactersList(it)
+                }
         }
     }
 }
+
+

@@ -10,5 +10,5 @@ data class PageDto (
     val nextPageDto: NextPageDto? = null,
     @SerializedName("results")
     @Expose
-    val charactersList: List<CharacterDto>? = null
+    val charactersList: List<JsonObject>? = null
 )

@@ -2,11 +2,10 @@ package com.oliferov.rickandmortyapi.data.network
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Inject
 
 object ApiFactory {
 
-    private const val BASE_URL = "https://rickandmortyapi.com/api/character/"
+    private const val BASE_URL = "https://rickandmortyapi.com/api/"
 
     private val retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
