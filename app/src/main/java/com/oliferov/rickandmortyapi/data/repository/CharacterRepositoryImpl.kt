@@ -1,8 +1,5 @@
 package com.oliferov.rickandmortyapi.data.repository
 
-import android.annotation.SuppressLint
-import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.oliferov.rickandmortyapi.data.database.CharacterDao
@@ -29,9 +26,7 @@ class CharacterRepositoryImpl @Inject constructor(
         }
     }
 
-    @SuppressLint("CheckResult")
     override suspend fun loadData() {
-
         var nextPage = "1"
         while (nextPage != "null") {
             val pageDto = ApiFactory.apiService.getAllCharacters(page = nextPage)

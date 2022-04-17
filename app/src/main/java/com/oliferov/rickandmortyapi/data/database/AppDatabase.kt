@@ -5,7 +5,7 @@ import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteOpenHelper
 import java.util.*
 
-@Database(entities = [CharacterDbModel::class], version = 1, exportSchema = false)
+@Database(entities = [CharacterDbModel::class], version = 3, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     companion object {
