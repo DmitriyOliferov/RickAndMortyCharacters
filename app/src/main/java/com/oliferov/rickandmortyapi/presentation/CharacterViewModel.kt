@@ -23,6 +23,5 @@ class CharacterViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             loadDataUseCase()
         }
-
     }
 }

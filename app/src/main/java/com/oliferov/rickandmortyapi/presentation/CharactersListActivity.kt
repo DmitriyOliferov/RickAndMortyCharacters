@@ -30,9 +30,11 @@ class CharactersListActivity : AppCompatActivity() {
         setContentView(binding.root)
         val adapter = CharacterAdapter(this)
         adapter.onCharacterClickListener = object : CharacterAdapter.OnCharacterClickListener {
-
             override fun onCharacterClick(character: Character) {
-//TODO characterDetailActivity
+                startActivity(CharacterDetailActivity.newIntent(
+                    this@CharactersListActivity,
+                    character.id
+                ))
             }
         }
         binding.rvCharactersList.adapter = adapter

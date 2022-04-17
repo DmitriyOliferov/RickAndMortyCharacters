@@ -1,6 +1,7 @@
 package com.oliferov.rickandmortyapi.di
 
 import android.app.Application
+import com.oliferov.rickandmortyapi.presentation.CharacterDetailFragment
 import com.oliferov.rickandmortyapi.presentation.CharactersListActivity
 import dagger.BindsInstance
 import dagger.Component
@@ -21,4 +22,6 @@ interface ApplicationComponent {
     }
 
     fun inject(activity: CharactersListActivity)
+
+    fun inject(fragment: CharacterDetailFragment)
 }

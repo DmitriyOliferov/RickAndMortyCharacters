@@ -35,11 +35,14 @@ class CharacterRepositoryImpl @Inject constructor(
         var nextPage = "1"
         while (nextPage != "null") {
             val pageDto = ApiFactory.apiService.getAllCharacters(page = nextPage)
-            nextPage = pageDto.nextPageDto?.nextPage?.let {
-                it.substring(
-                    it.lastIndexOf("=") + 1
-                )
-            } ?: "null"
+            nextPage = pageDto
+                .nextPageDto
+                ?.nextPage
+                ?.let {
+                    it.substring(
+                        it.lastIndexOf("=") + 1
+                    )
+                } ?: "null"
             mapper.mapJsonCharacterListToCharactersList(pageDto)
                 .let {
                     mapper.mapDtoListToDbModelList(it)
