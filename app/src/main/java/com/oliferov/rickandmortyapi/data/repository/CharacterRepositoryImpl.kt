@@ -32,10 +32,6 @@ class CharacterRepositoryImpl @Inject constructor(
     }
 
     override suspend fun loadData() {
-        loadInDb()
-    }
-
-    suspend fun loadInDb() {
         var currentPage = "1"
         while (currentPage != "null") {
             val pageDto = ApiFactory.apiService.getAllCharacters(page = currentPage)

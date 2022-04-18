@@ -3,9 +3,11 @@ package com.oliferov.rickandmortyapi.presentation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.oliferov.rickandmortyapi.databinding.ActivityCharactersListBinding
 import com.oliferov.rickandmortyapi.domain.Character
 import com.oliferov.rickandmortyapi.presentation.adapter.CharacterAdapter
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CharactersListActivity : AppCompatActivity() {
@@ -40,6 +42,7 @@ class CharactersListActivity : AppCompatActivity() {
         }
         binding.rvCharactersList.adapter = adapter
         viewModel = ViewModelProvider(this, viewModelFactory)[CharacterViewModel::class.java]
+        viewModel.loadData()
         viewModel.charactersList.observe(this) {
             adapter.submitList(it)
         }
