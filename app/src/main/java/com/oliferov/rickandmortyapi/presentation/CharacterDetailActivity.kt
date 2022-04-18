@@ -2,8 +2,8 @@ package com.oliferov.rickandmortyapi.presentation
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.oliferov.rickandmortyapi.R
 import com.oliferov.rickandmortyapi.databinding.ActivityDetailCharacterBinding
 

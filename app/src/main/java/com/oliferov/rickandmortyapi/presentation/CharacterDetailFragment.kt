@@ -55,13 +55,14 @@ class CharacterDetailFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)[CharacterViewModel::class.java]
         viewModel.getCharacterDetail(characterId).observe(viewLifecycleOwner) {
             with(binding) {
-                with(requireActivity().resources){
+                with(requireActivity().resources) {
                     tvName.text = it.name
-                    tvGender.text = String.format(getString(R.string.gender_detail),it.gender)
-                    tvSpecies.text = String.format(getString(R.string.species_detail),it.species)
-                    tvStatus.text = String.format(getString(R.string.status_detail),it.status)
-                    tvEpisode.text = String.format(getString(R.string.episode_detail),it.episode)
-                    tvLocation.text = String.format(getString(R.string.location_detail),it.location)
+                    tvGender.text = String.format(getString(R.string.gender_detail), it.gender)
+                    tvSpecies.text = String.format(getString(R.string.species_detail), it.species)
+                    tvStatus.text = String.format(getString(R.string.status_detail), it.status)
+                    tvEpisode.text = String.format(getString(R.string.episode_detail), it.episode)
+                    tvLocation.text =
+                        String.format(getString(R.string.location_detail), it.location)
                     Picasso.get().load(it.avatarUrl).into(ivAvatar)
                 }
 

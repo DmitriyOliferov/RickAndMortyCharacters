@@ -1,5 +1,6 @@
 package com.oliferov.rickandmortyapi.data.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.oliferov.rickandmortyapi.data.database.CharacterDao
@@ -15,9 +16,13 @@ class CharacterRepositoryImpl @Inject constructor(
 ) : CharacterRepository {
 
     override fun getCharactersList(): LiveData<List<Character>> {
-        return Transformations.map(characterDao.getCharactersList()) {
-            mapper.mapDbModelListToEntityList(it)
+        val list = Transformations.map(characterDao.getCharactersList()) {
+            it.map {
+                Log.i("Dxd", it.toString())
+                mapper.mapDbModelToEntity(it)
+            }
         }
+        return list
     }
 
     override fun getCharacter(id: Int): LiveData<Character> {
@@ -27,25 +32,26 @@ class CharacterRepositoryImpl @Inject constructor(
     }
 
     override suspend fun loadData() {
-        var nextPage = "1"
-        while (nextPage != "null") {
-            val pageDto = ApiFactory.apiService.getAllCharacters(page = nextPage)
-            nextPage = pageDto
-                .nextPageDto
-                ?.nextPage
-                ?.let {
-                    it.substring(
-                        it.lastIndexOf("=") + 1
-                    )
-                } ?: "null"
-            mapper.mapJsonCharacterListToCharactersList(pageDto)
-                .let {
-                    mapper.mapDtoListToDbModelList(it)
-                }
-                .let {
-                    characterDao.insertCharactersList(it)
-                }
+        loadInDb()
+    }
+
+    suspend fun loadInDb() {
+        var currentPage = "1"
+        while (currentPage != "null") {
+            val pageDto = ApiFactory.apiService.getAllCharacters(page = currentPage)
+            val listDto = pageDto.charactersList ?: emptyList()
+            val listDbModel = mapper.mapDtoListToDbModelList(listDto)
+            characterDao.insertCharactersList(listDbModel)
+            currentPage = getNextPage(pageDto.nextPageDto?.nextPage ?: "null")
+
         }
+    }
+
+    private fun getNextPage(page: String): String {
+        if (page == "null") return "null"
+        return page.substring(
+            page.lastIndexOf("=") + 1
+        )
     }
 }
 

@@ -5,8 +5,8 @@ import com.oliferov.rickandmortyapi.data.database.AppDatabase
 import com.oliferov.rickandmortyapi.data.database.CharacterDao
 import com.oliferov.rickandmortyapi.data.repository.CharacterRepositoryImpl
 import com.oliferov.rickandmortyapi.domain.CharacterRepository
-import dagger.Module
 import dagger.Binds
+import dagger.Module
 import dagger.Provides
 
 @Module

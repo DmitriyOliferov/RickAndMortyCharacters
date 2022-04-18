@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
-interface CharacterDao{
+interface CharacterDao {
 
     @Query("SELECT * FROM character WHERE id == :id LIMIT 1")
     fun getCharacter(id: Int): LiveData<CharacterDbModel>

@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-data class CharacterDto (
+data class CharacterDto(
     @SerializedName("id")
     @Expose
     val id: Int,

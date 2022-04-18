@@ -1,9 +1,8 @@
 package com.oliferov.rickandmortyapi.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.oliferov.rickandmortyapi.R
 import com.oliferov.rickandmortyapi.databinding.ActivityCharactersListBinding
 import com.oliferov.rickandmortyapi.domain.Character
 import com.oliferov.rickandmortyapi.presentation.adapter.CharacterAdapter
@@ -31,10 +30,12 @@ class CharactersListActivity : AppCompatActivity() {
         val adapter = CharacterAdapter(this)
         adapter.onCharacterClickListener = object : CharacterAdapter.OnCharacterClickListener {
             override fun onCharacterClick(character: Character) {
-                startActivity(CharacterDetailActivity.newIntent(
-                    this@CharactersListActivity,
-                    character.id
-                ))
+                startActivity(
+                    CharacterDetailActivity.newIntent(
+                        this@CharactersListActivity,
+                        character.id
+                    )
+                )
             }
         }
         binding.rvCharactersList.adapter = adapter
