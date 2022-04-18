@@ -34,10 +34,4 @@ class CharacterMapper @Inject constructor() {
             mapDtoToDbModel(it)
         }
     }
-
-    fun mapDbModelListToEntityList(dtoList: List<CharacterDbModel>): List<Character> {
-        return dtoList.map {
-            mapDbModelToEntity(it)
-        }
-    }
 }

@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/project/RickAndMortyApi/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2703125" />
         <entry key="..\:/project/RickAndMortyApi/app/src/main/res/layout/activity_characters_list.xml" value="0.264" />
         <entry key="..\:/project/RickAndMortyApi/app/src/main/res/layout/activity_detail_character.xml" value="0.25416666666666665" />
         <entry key="..\:/project/RickAndMortyApi/app/src/main/res/layout/activity_main.xml" value="0.13020833333333334" />

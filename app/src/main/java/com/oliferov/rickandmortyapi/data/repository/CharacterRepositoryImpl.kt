@@ -18,7 +18,6 @@ class CharacterRepositoryImpl @Inject constructor(
     override fun getCharactersList(): LiveData<List<Character>> {
         val list = Transformations.map(characterDao.getCharactersList()) {
             it.map {
-                Log.i("Dxd", it.toString())
                 mapper.mapDbModelToEntity(it)
             }
         }
@@ -32,22 +31,28 @@ class CharacterRepositoryImpl @Inject constructor(
     }
 
     override suspend fun loadData() {
-        var currentPage = "1"
-        while (currentPage != "null") {
+        var currentPage = CURRENT_PAGE
+        while (currentPage != LAST_PAGE) {
             val pageDto = ApiFactory.apiService.getAllCharacters(page = currentPage)
             val listDto = pageDto.charactersList ?: emptyList()
             val listDbModel = mapper.mapDtoListToDbModelList(listDto)
             characterDao.insertCharactersList(listDbModel)
-            currentPage = getNextPage(pageDto.nextPageDto?.nextPage ?: "null")
+            currentPage = getNextPage(pageDto.nextPageDto?.nextPage ?: LAST_PAGE)
 
         }
     }
 
     private fun getNextPage(page: String): String {
-        if (page == "null") return "null"
+        if (page == LAST_PAGE) return LAST_PAGE
         return page.substring(
-            page.lastIndexOf("=") + 1
+            page.lastIndexOf(START_INDEX) + 1
         )
+    }
+
+    companion object{
+        private const val CURRENT_PAGE = "1"
+        private const val LAST_PAGE = "null"
+        private const val START_INDEX = "="
     }
 }
 

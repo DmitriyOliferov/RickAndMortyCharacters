@@ -2,8 +2,11 @@
     <string name="app_name">Rick and Morty  - Characters</string>
     <string name="rick_and_morty">Rick and Morty</string>
     <string name="location_detail">Last location: %s</string>
-    <string name="episode_detail">Count Episode: %s</string>
+    <string name="episode_detail">Number of episodes: %s</string>
     <string name="status_detail">Status: %s</string>
     <string name="gender_detail">Gender: %s</string>
     <string name="species_detail">Species: %s</string>
+    <string name="gender">Gender:</string>
+    <string name="species">Species:</string>
+    <string name="name">Name:</string>
 </resources>

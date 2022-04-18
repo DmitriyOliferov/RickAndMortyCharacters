@@ -7,12 +7,13 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("character")
+    @GET(END_POINT)
     suspend fun getAllCharacters(
         @Query(QUERY_PARAM_PAGE) page: String
     ): ResponseDto
 
     companion object {
         private const val QUERY_PARAM_PAGE = "page"
+        private const val END_POINT = "character"
     }
 }
